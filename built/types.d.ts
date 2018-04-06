@@ -1,0 +1,31 @@
+export declare namespace Types {
+    type TestFunction = (() => void | Promise<void>) | ((...args) => void | Promise<void>);
+    type XlsxDataSourceInfo = {
+        type: TestDataSourceType.XLSX;
+        xlsxFilePath?: string;
+        sheetIndex?: number;
+        sheetName?: string;
+    };
+    type ArrayDataSourceInfo = {
+        type: TestDataSourceType.DATA_ARRAY;
+        source: any[];
+    };
+    type DataSourceInfo = XlsxDataSourceInfo | ArrayDataSourceInfo;
+    type TestDataFilter = {
+        field: string;
+        exactValue?: string | number | boolean;
+        partialValue?: string | number | boolean;
+    };
+    enum TestDataSourceType {
+        XLSX = 0,
+        DATA_ARRAY = 1,
+    }
+    type PTestOptions = {
+        data: DataSourceInfo;
+        filterBy?: TestDataFilter;
+    };
+    type TestOptions = {
+        name: string;
+        filterExpression?: string;
+    };
+}

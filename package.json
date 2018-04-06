@@ -1,0 +1,15 @@
+{
+  "name": "jasmine-cookies",
+  "version": "1.0.0",
+  "main": "built/index.js",
+  "typings": "built/index.d.ts",
+  "dependencies": {
+    "@types/jasmine": "2.6.0",
+    "protractor-extensions": "git+ssh://git@github.com/KnowledgeExpert/protractor-extensions.git",
+    "xlsx": "0.12.7",
+    "typescript": "2.5.3"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+}
