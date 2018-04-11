@@ -7,7 +7,7 @@ import TestOptions = Types.TestOptions;
 
 export namespace Test {
 
-    let filter;
+    let filter = process.env.JASMINE_COOKIES_FILTER;
 
     export function addFilter(filterExpr: string): void {
         filter = filterExpr;

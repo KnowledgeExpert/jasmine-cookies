@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const testUtils_1 = require("./testUtils");
 var Test;
 (function (Test) {
-    let filter;
+    let filter = process.env.JASMINE_COOKIES_FILTER;
     function addFilter(filterExpr) {
         filter = filterExpr;
     }
