@@ -5,7 +5,8 @@
   "typings": "built/index.d.ts",
   "dependencies": {
     "@types/jasmine": "2.6.0",
-    "protractor-extensions": "git+ssh://git@github.com/KnowledgeExpert/protractor-extensions.git",
+    "@types/node": "9.6.4",
+    "csv-to-deep-json": "git+ssh://git@github.com/KnowledgeExpert/csv-to-deep-json.git",
     "xlsx": "0.12.7",
     "typescript": "2.5.3"
   },

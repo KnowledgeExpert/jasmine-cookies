@@ -1,5 +1,5 @@
 import * as xlsx from "xlsx";
-import {CsvToDeepJson} from "protractor-extensions";
+import {CsvToDeepJson} from "csv-to-deep-json";
 import {Types} from "./types";
 import TestDataFilter = Types.TestDataFilter;
 import DataSourceInfo = Types.DataSourceInfo;

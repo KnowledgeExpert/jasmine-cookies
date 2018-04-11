@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const xlsx = require("xlsx");
-const protractor_extensions_1 = require("protractor-extensions");
+const csv_to_deep_json_1 = require("csv-to-deep-json");
 const types_1 = require("./types");
 var TestDataSourceType = types_1.Types.TestDataSourceType;
 var TestUtils;
@@ -51,7 +51,7 @@ var TestUtils;
         const csvData = dataSource.sheetName
             ? xlsx.utils.sheet_to_csv(wb.Sheets[dataSource.sheetName])
             : xlsx.utils.sheet_to_csv(wb.Sheets[wb.SheetNames[dataSource.sheetIndex || 0]]);
-        return protractor_extensions_1.CsvToDeepJson.buildObjectsFromCsvString(csvData, '\n');
+        return csv_to_deep_json_1.CsvToDeepJson.buildObjectsFromCsvString(csvData, '\n');
     }
     function getValueFromPath(obj, objPath) {
         if (obj === undefined)
