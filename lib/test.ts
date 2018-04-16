@@ -9,8 +9,14 @@ export namespace Test {
 
     let filter = process.env.JASMINE_COOKIES_FILTER;
 
-    export function addFilter(filterExpr: string): void {
+    export function setFilter(filterExpr: string): void {
         filter = filterExpr || filter;
+    }
+
+    export function Describe(description: string, func: () => void) {
+        if (!filter || (filter && TestUtils.match(filter, description))) {
+            describe(description, func);
+        }
     }
 
     export function It(testOptionsOrName: TestOptions | string, func: TestFunction) {
@@ -26,7 +32,7 @@ export namespace Test {
     }
 
     /**
-     * Method is the wrapper for jasmine 'it' and designed to work with the test data from *.xlsx files or arrays.
+     * Method is the wrapper for jasmine 'it' and designed to work with the test data from *.xlsx files, csv files or arrays.
      * Data is prepared(if needed), tests are filtered (if needed) and then these selected tests run as usual
      * @param {PTestOptions} ptestOptions
      * @param {TestUtils.TestFunction} func

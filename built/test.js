@@ -4,10 +4,16 @@ const testUtils_1 = require("./testUtils");
 var Test;
 (function (Test) {
     let filter = process.env.JASMINE_COOKIES_FILTER;
-    function addFilter(filterExpr) {
+    function setFilter(filterExpr) {
         filter = filterExpr || filter;
     }
-    Test.addFilter = addFilter;
+    Test.setFilter = setFilter;
+    function Describe(description, func) {
+        if (!filter || (filter && testUtils_1.TestUtils.match(filter, description))) {
+            describe(description, func);
+        }
+    }
+    Test.Describe = Describe;
     function It(testOptionsOrName, func) {
         if (typeof testOptionsOrName === 'string') {
             if (!filter || (filter && testUtils_1.TestUtils.match(filter, testOptionsOrName))) {
@@ -22,7 +28,7 @@ var Test;
     }
     Test.It = It;
     /**
-     * Method is the wrapper for jasmine 'it' and designed to work with the test data from *.xlsx files or arrays.
+     * Method is the wrapper for jasmine 'it' and designed to work with the test data from *.xlsx files, csv files or arrays.
      * Data is prepared(if needed), tests are filtered (if needed) and then these selected tests run as usual
      * @param {PTestOptions} ptestOptions
      * @param {TestUtils.TestFunction} func
