@@ -6,11 +6,15 @@ export declare namespace Types {
         sheetIndex?: number;
         sheetName?: string;
     };
+    type CsvDataSourceInfo = {
+        type: TestDataSourceType.CSV;
+        csvFilePath?: string;
+    };
     type ArrayDataSourceInfo = {
         type: TestDataSourceType.DATA_ARRAY;
         source: any[];
     };
-    type DataSourceInfo = XlsxDataSourceInfo | ArrayDataSourceInfo;
+    type DataSourceInfo = XlsxDataSourceInfo | CsvDataSourceInfo | ArrayDataSourceInfo;
     type TestDataFilter = {
         field: string;
         exactValue?: string | number | boolean;
@@ -18,7 +22,8 @@ export declare namespace Types {
     };
     enum TestDataSourceType {
         XLSX = 0,
-        DATA_ARRAY = 1,
+        CSV = 1,
+        DATA_ARRAY = 2,
     }
     type PTestOptions = {
         data: DataSourceInfo;

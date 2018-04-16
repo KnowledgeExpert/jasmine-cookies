@@ -10,7 +10,7 @@ export namespace Test {
     let filter = process.env.JASMINE_COOKIES_FILTER;
 
     export function addFilter(filterExpr: string): void {
-        filter = filterExpr;
+        filter = filterExpr || filter;
     }
 
     export function It(testOptionsOrName: TestOptions | string, func: TestFunction) {

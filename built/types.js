@@ -5,8 +5,8 @@ var Types;
     let TestDataSourceType;
     (function (TestDataSourceType) {
         TestDataSourceType[TestDataSourceType["XLSX"] = 0] = "XLSX";
-        // CSV, // TBD
-        TestDataSourceType[TestDataSourceType["DATA_ARRAY"] = 1] = "DATA_ARRAY";
+        TestDataSourceType[TestDataSourceType["CSV"] = 1] = "CSV";
+        TestDataSourceType[TestDataSourceType["DATA_ARRAY"] = 2] = "DATA_ARRAY";
     })(TestDataSourceType = Types.TestDataSourceType || (Types.TestDataSourceType = {}));
     // export type JiraTestOptions = {
     //     issueId: string,

@@ -6,9 +6,12 @@ import DataSourceInfo = Types.DataSourceInfo;
 import TestDataSourceType = Types.TestDataSourceType;
 import XlsxDataSourceInfo = Types.XlsxDataSourceInfo;
 import TestFunction = Types.TestFunction;
+import * as fs from "fs";
 
 
 export namespace TestUtils {
+
+    import CsvDataSourceInfo = Types.CsvDataSourceInfo;
 
     export function match(filterExpression: string, text: string): boolean {
         if (!filterExpression || filterExpression.length === 0) return true;
@@ -45,6 +48,8 @@ export namespace TestUtils {
     export function prepareTestDataFrom(dataSource: DataSourceInfo) {
         if (dataSource.type === TestDataSourceType.XLSX) {
             return prepareTestDataFromXlsx(dataSource);
+        } else if (dataSource.type === TestDataSourceType.CSV) {
+                return prepareTestDataFromCsv(dataSource);
         } else {
             return dataSource.source;
         }
@@ -56,6 +61,11 @@ export namespace TestUtils {
             ? xlsx.utils.sheet_to_csv(wb.Sheets[dataSource.sheetName])
             : xlsx.utils.sheet_to_csv(wb.Sheets[wb.SheetNames[dataSource.sheetIndex || 0]]);
         return CsvToDeepJson.buildObjectsFromCsvString(csvData, '\n');
+    }
+
+    function prepareTestDataFromCsv(dataSource: CsvDataSourceInfo): any[] {
+        const csvData = fs.readFileSync(dataSource.csvFilePath);
+        return CsvToDeepJson.buildObjectsFromCsv(csvData.toString().split('\r'));
     }
 
     function getValueFromPath(obj: any, objPath: string): any {

@@ -5,7 +5,7 @@ var Test;
 (function (Test) {
     let filter = process.env.JASMINE_COOKIES_FILTER;
     function addFilter(filterExpr) {
-        filter = filterExpr;
+        filter = filterExpr || filter;
     }
     Test.addFilter = addFilter;
     function It(testOptionsOrName, func) {

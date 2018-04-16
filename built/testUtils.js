@@ -4,6 +4,7 @@ const xlsx = require("xlsx");
 const csv_to_deep_json_1 = require("csv-to-deep-json");
 const types_1 = require("./types");
 var TestDataSourceType = types_1.Types.TestDataSourceType;
+const fs = require("fs");
 var TestUtils;
 (function (TestUtils) {
     function match(filterExpression, text) {
@@ -41,6 +42,9 @@ var TestUtils;
         if (dataSource.type === TestDataSourceType.XLSX) {
             return prepareTestDataFromXlsx(dataSource);
         }
+        else if (dataSource.type === TestDataSourceType.CSV) {
+            return prepareTestDataFromCsv(dataSource);
+        }
         else {
             return dataSource.source;
         }
@@ -52,6 +56,10 @@ var TestUtils;
             ? xlsx.utils.sheet_to_csv(wb.Sheets[dataSource.sheetName])
             : xlsx.utils.sheet_to_csv(wb.Sheets[wb.SheetNames[dataSource.sheetIndex || 0]]);
         return csv_to_deep_json_1.CsvToDeepJson.buildObjectsFromCsvString(csvData, '\n');
+    }
+    function prepareTestDataFromCsv(dataSource) {
+        const csvData = fs.readFileSync(dataSource.csvFilePath);
+        return csv_to_deep_json_1.CsvToDeepJson.buildObjectsFromCsv(csvData.toString().split('\r'));
     }
     function getValueFromPath(obj, objPath) {
         if (obj === undefined)
