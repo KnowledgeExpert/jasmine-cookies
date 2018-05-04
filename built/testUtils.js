@@ -8,7 +8,8 @@ const fs = require("fs");
 var TestUtils;
 (function (TestUtils) {
     function match(filterExpression, text) {
-        if (!filterExpression || filterExpression.length === 0)
+        // if (!filterExpression || filterExpression.length === 0) return true;
+        if (!filterExpression || filterExpression.length === 0 || text.includes(filterExpression))
             return true;
         const operandsPairs = [
             { literal: "AND", alias: "&" },

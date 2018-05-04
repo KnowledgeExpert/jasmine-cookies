@@ -14,7 +14,8 @@ export namespace TestUtils {
     import CsvDataSourceInfo = Types.CsvDataSourceInfo;
 
     export function match(filterExpression: string, text: string): boolean {
-        if (!filterExpression || filterExpression.length === 0) return true;
+        // if (!filterExpression || filterExpression.length === 0) return true;
+        if (!filterExpression || filterExpression.length === 0 || text.includes(filterExpression)) return true;
         const operandsPairs = [
             {literal: "AND", alias: "&"},
             {literal: "OR", alias: "|"},
