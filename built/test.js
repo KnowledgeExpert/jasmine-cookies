@@ -4,26 +4,22 @@ const testUtils_1 = require("./testUtils");
 var Test;
 (function (Test) {
     let filter = process.env.JASMINE_COOKIES_FILTER;
+    let suiteName = null;
     function setFilter(filterExpr) {
         filter = filterExpr || filter;
     }
     Test.setFilter = setFilter;
     function Describe(description, func) {
-        if (!filter || (filter && testUtils_1.TestUtils.match(filter, description))) {
-            describe(description, func);
-        }
+        suiteName = description;
+        describe(description, func);
     }
     Test.Describe = Describe;
     function It(testOptionsOrName, func) {
-        if (typeof testOptionsOrName === 'string') {
-            if (!filter || (filter && testUtils_1.TestUtils.match(filter, testOptionsOrName))) {
-                it(testOptionsOrName, func);
-            }
-        }
-        else {
-            if (!filter || (filter && testUtils_1.TestUtils.match(filter, testOptionsOrName.name))) {
-                it(testOptionsOrName.name, func);
-            }
+        const test = typeof testOptionsOrName === 'string' ? testOptionsOrName : testOptionsOrName.name;
+        const suite = suiteName ? `${suiteName} ` : '';
+        const fullTestName = `${suite}${test}`;
+        if (!filter || (filter && testUtils_1.TestUtils.match(filter, fullTestName))) {
+            it(test, func);
         }
     }
     Test.It = It;

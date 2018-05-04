@@ -10,7 +10,7 @@ Code sample:
 ```
 const Test = require("jasmine-cookies");
 
-describe("...", () => {
+Test.Describe("...", () => {
     Test.It('test id 101', async () => {
         ...
     });
@@ -19,14 +19,15 @@ describe("...", () => {
 
 Filter expression samples:
 ```
-`Test.addFilter("foo OR bar")` // choose only tests which name contains 'foo' and 'bar'
-`Test.addFilter("foo OR (bar AND id)")` // choose only tests which name contains 'foo' or (contains 'bar' and contains 'id')
-`Test.addFilter("foo | (bar & !id)")` // choose only tests which name contains 'foo' or (contains 'bar' and don't contains 'id')
-`Test.addFilter("foo OR bar")` // choose only tests which name contains 'foo' or 'bar'
-`Test.addFilter("NOT foo OR bar")` // choose only tests which name don't contains 'foo' or contains 'bar'
+`Test.filter("foo OR bar")` // choose only tests which name contains 'foo' and 'bar'
+`Test.filter("foo OR ( bar AND id )")` // choose only tests which name contains 'foo' or (contains 'bar' and contains 'id')
+`Test.filter("foo | ( bar & !id )")` // choose only tests which name contains 'foo' or (contains 'bar' and don't contains 'id')
+`Test.filter("foo OR bar")` // choose only tests which name contains 'foo' or 'bar'
+`Test.filter("NOT foo OR bar")` // choose only tests which name don't contains 'foo' or contains 'bar'
 ```
-
-`Test.addFilter(...)` should be called before any `It` or `pIt`, or it can be set in environment variable `JASMINE_COOKIES_FILTER`
+Note:
+ - `Test.filter(...)` should be called before any `It` or `pIt`, or it can be set in environment variable `JASMINE_COOKIES_FILTER`
+ - filter expression will be applied to concatenated `Describe` and `It`/`pIt` descriptions, DO NOT USE 'raw' jasmine `describe` with `It`'s!
 
 ## [pIt](./lib/test.ts)
 

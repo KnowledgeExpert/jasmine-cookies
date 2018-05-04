@@ -8,26 +8,24 @@ import TestOptions = Types.TestOptions;
 export namespace Test {
 
     let filter = process.env.JASMINE_COOKIES_FILTER;
+    let suiteName: string | null = null;
 
     export function setFilter(filterExpr: string): void {
         filter = filterExpr || filter;
     }
 
     export function Describe(description: string, func: () => void) {
-        if (!filter || (filter && TestUtils.match(filter, description))) {
-            describe(description, func);
-        }
+        suiteName = description;
+        describe(description, func);
     }
 
     export function It(testOptionsOrName: TestOptions | string, func: TestFunction) {
-        if (typeof testOptionsOrName === 'string') {
-            if (!filter || (filter && TestUtils.match(filter, testOptionsOrName))) {
-                it(testOptionsOrName, func);
-            }
-        } else {
-            if (!filter || (filter && TestUtils.match(filter, testOptionsOrName.name))) {
-                it(testOptionsOrName.name, func);
-            }
+        const test = typeof testOptionsOrName === 'string' ? testOptionsOrName : testOptionsOrName.name;
+        const suite = suiteName ? `${suiteName} ` : '';
+        const fullTestName = `${suite}${test}`;
+
+        if (!filter || (filter && TestUtils.match(filter, fullTestName))) {
+            it(test, func);
         }
     }
 
