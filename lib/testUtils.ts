@@ -14,27 +14,27 @@ export namespace TestUtils {
     import CsvDataSourceInfo = Types.CsvDataSourceInfo;
 
     export function match(filterExpression: string, text: string): boolean {
-        // if (!filterExpression || filterExpression.length === 0) return true;
-        if (!filterExpression || filterExpression.length === 0 || text.includes(filterExpression)) return true;
-        const operandsPairs = [
-            {literal: "AND", alias: "&"},
-            {literal: "OR", alias: "|"},
-            {literal: "NOT", alias: "!"}
-        ];
-
-        const transformedExpr = filterExpression.split(" ")
-            .map(token => token.match(/[)(]/g) ? `${token.substring(0, 1)} ${token.substring(1, token.length)}` : token)
-            .reduce((f, s) => `${f} ${s}`)
-            .split(" ")
-            .map(token => {
-                const operandPairs = operandsPairs.filter(pair => token === pair.literal || token === pair.alias);
-                return operandPairs[0] ? operandPairs[0].alias :
-                    "()".includes(token) ? token :
-                        `${text.includes(token)}`;
-            })
-            .reduce((f, s) => `${f} ${s}`);
-
-        return !!eval(transformedExpr);
+        if (!filterExpression || filterExpression.length === 0) return true;
+        return text.includes(filterExpression);
+        // const operandsPairs = [
+        //     {literal: "AND", alias: "&"},
+        //     {literal: "OR", alias: "|"},
+        //     {literal: "NOT", alias: "!"}
+        // ];
+        //
+        // const transformedExpr = filterExpression.split(" ")
+        //     .map(token => token.match(/[)(]/g) ? `${token.substring(0, 1)} ${token.substring(1, token.length)}` : token)
+        //     .reduce((f, s) => `${f} ${s}`)
+        //     .split(" ")
+        //     .map(token => {
+        //         const operandPairs = operandsPairs.filter(pair => token === pair.literal || token === pair.alias);
+        //         return operandPairs[0] ? operandPairs[0].alias :
+        //             "()".includes(token) ? token :
+        //                 `${text.includes(token)}`;
+        //     })
+        //     .reduce((f, s) => `${f} ${s}`);
+        //
+        // return !!eval(transformedExpr);
     }
 
     export function filterByPropertyValue(testData: any, filterBy: TestDataFilter): boolean {
