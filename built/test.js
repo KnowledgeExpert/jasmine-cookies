@@ -5,13 +5,45 @@ var Test;
 (function (Test) {
     let filter = process.env.JASMINE_COOKIES_FILTER;
     let suiteName = null;
+    let defaultBeforeEach;
+    let defaultBeforeAll;
+    let defaultAfterEach;
+    let defaultAfterAll;
     function setFilter(filterExpr) {
         filter = filterExpr || filter;
     }
     Test.setFilter = setFilter;
-    function Describe(description, func) {
-        suiteName = description;
-        describe(description, func);
+    function setDefaultHooks(hooks) {
+        defaultBeforeEach = hooks.beforeEach;
+        defaultBeforeAll = hooks.beforeAll;
+        defaultAfterEach = hooks.afterEach;
+        defaultAfterAll = hooks.afterAll;
+    }
+    Test.setDefaultHooks = setDefaultHooks;
+    function Describe(descriptionOrSuiteOptions, func) {
+        let beforeEachHook;
+        let beforeAllHook;
+        let afterEachHook;
+        let afterAllHook;
+        if (typeof descriptionOrSuiteOptions === 'string') {
+            suiteName = descriptionOrSuiteOptions;
+        }
+        else {
+            suiteName = descriptionOrSuiteOptions.name;
+            beforeEachHook = descriptionOrSuiteOptions.beforeEach ? descriptionOrSuiteOptions.beforeEach : defaultBeforeEach;
+            beforeAllHook = descriptionOrSuiteOptions.beforeAll ? descriptionOrSuiteOptions.beforeAll : defaultBeforeAll;
+            afterEachHook = descriptionOrSuiteOptions.afterEach ? descriptionOrSuiteOptions.afterEach : defaultAfterEach;
+            afterAllHook = descriptionOrSuiteOptions.afterAll ? descriptionOrSuiteOptions.afterAll : defaultAfterAll;
+        }
+        if (beforeEachHook)
+            beforeEach(beforeEachHook);
+        if (beforeAllHook)
+            beforeAll(beforeAllHook);
+        if (afterEachHook)
+            afterEach(afterEachHook);
+        if (afterAllHook)
+            afterAll(afterAllHook);
+        describe(suiteName, func);
     }
     Test.Describe = Describe;
     function It(testOptionsOrName, func) {

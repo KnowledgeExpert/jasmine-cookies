@@ -33,4 +33,11 @@ export declare namespace Types {
         name: string;
         filterExpression?: string;
     };
+    type SuiteOptions = {
+        name: string;
+        beforeEach?: TestFunction;
+        afterEach?: TestFunction;
+        beforeAll?: TestFunction;
+        afterAll?: TestFunction;
+    };
 }

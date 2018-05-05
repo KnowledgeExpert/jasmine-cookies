@@ -2,9 +2,16 @@ import { Types } from "./types";
 import TestFunction = Types.TestFunction;
 import PTestOptions = Types.PTestOptions;
 import TestOptions = Types.TestOptions;
+import SuiteOptions = Types.SuiteOptions;
 export declare namespace Test {
     function setFilter(filterExpr: string): void;
-    function Describe(description: string, func: () => void): void;
+    function setDefaultHooks(hooks: {
+        beforeEach?: TestFunction;
+        afterEach?: TestFunction;
+        beforeAll?: TestFunction;
+        afterAll?: TestFunction;
+    }): void;
+    function Describe(descriptionOrSuiteOptions: SuiteOptions | string, func: () => void): void;
     function It(testOptionsOrName: TestOptions | string, func: TestFunction): void;
     /**
      * Method is the wrapper for jasmine 'it' and designed to work with the test data from *.xlsx files, csv files or arrays.

@@ -24,6 +24,14 @@ export namespace Types {
         // jira?: JiraTestOptions
     }
 
+    export type SuiteOptions = {
+        name: string,
+        beforeEach?: TestFunction,
+        afterEach?: TestFunction,
+        beforeAll?: TestFunction,
+        afterAll?: TestFunction
+    }
+
     // export type JiraTestOptions = {
     //     issueId: string,
     //     applyLabels?: string[]
