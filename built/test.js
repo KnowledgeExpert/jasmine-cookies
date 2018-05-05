@@ -3,16 +3,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const testUtils_1 = require("./testUtils");
 var Test;
 (function (Test) {
-    let filter = process.env.JASMINE_COOKIES_FILTER;
+    let includesFilter = process.env.JASMINE_COOKIES_FILTER;
+    let conditionalFilter = process.env.JASMINE_COOKIES_CONDITIONAL_FILTER;
     let suiteName;
     let defaultBeforeEach;
     let defaultBeforeAll;
     let defaultAfterEach;
     let defaultAfterAll;
-    function setFilter(filterExpr) {
-        filter = filterExpr || filter;
+    function setIncludesFilter(filterExpr) {
+        includesFilter = filterExpr || includesFilter;
     }
-    Test.setFilter = setFilter;
+    Test.setIncludesFilter = setIncludesFilter;
+    function setConditionalFilter(filterExpr) {
+        conditionalFilter = filterExpr || conditionalFilter;
+    }
+    Test.setConditionalFilter = setConditionalFilter;
     function setDefaultHooks(hooks) {
         defaultBeforeEach = hooks.beforeEach;
         defaultBeforeAll = hooks.beforeAll;
@@ -46,7 +51,13 @@ var Test;
         const test = typeof testOptionsOrName === 'string' ? testOptionsOrName : testOptionsOrName.name;
         const suite = suiteName ? `${suiteName} ` : '';
         const fullTestName = `${suite}${test}`;
-        if (!filter || (filter && testUtils_1.TestUtils.match(filter, fullTestName))) {
+        if (includesFilter && fullTestName.includes(includesFilter)) {
+            it(test, func);
+        }
+        else if (conditionalFilter && testUtils_1.TestUtils.match(conditionalFilter, fullTestName)) {
+            it(test, func);
+        }
+        else if (!includesFilter && !conditionalFilter) {
             it(test, func);
         }
     }

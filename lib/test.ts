@@ -7,7 +7,8 @@ import SuiteOptions = Types.SuiteOptions;
 
 export namespace Test {
 
-    let filter = process.env.JASMINE_COOKIES_FILTER;
+    let includesFilter = process.env.JASMINE_COOKIES_FILTER;
+    let conditionalFilter = process.env.JASMINE_COOKIES_CONDITIONAL_FILTER;
 
     let suiteName: string | null;
     let defaultBeforeEach: TestFunction | null;
@@ -15,8 +16,12 @@ export namespace Test {
     let defaultAfterEach: TestFunction | null;
     let defaultAfterAll: TestFunction | null;
 
-    export function setFilter(filterExpr: string): void {
-        filter = filterExpr || filter;
+    export function setIncludesFilter(filterExpr: string): void {
+        includesFilter = filterExpr || includesFilter;
+    }
+
+    export function setConditionalFilter(filterExpr: string): void {
+        conditionalFilter = filterExpr || conditionalFilter;
     }
 
     export function setDefaultHooks(hooks: {
@@ -56,7 +61,11 @@ export namespace Test {
         const suite = suiteName ? `${suiteName} ` : '';
         const fullTestName = `${suite}${test}`;
 
-        if (!filter || (filter && TestUtils.match(filter, fullTestName))) {
+        if (includesFilter && fullTestName.includes(includesFilter)) {
+            it(test, func);
+        } else if (conditionalFilter && TestUtils.match(conditionalFilter, fullTestName)) {
+            it(test, func);
+        } else if (!includesFilter && !conditionalFilter) {
             it(test, func);
         }
     }

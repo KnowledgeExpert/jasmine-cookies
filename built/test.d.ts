@@ -4,7 +4,8 @@ import PTestOptions = Types.PTestOptions;
 import TestOptions = Types.TestOptions;
 import SuiteOptions = Types.SuiteOptions;
 export declare namespace Test {
-    function setFilter(filterExpr: string): void;
+    function setIncludesFilter(filterExpr: string): void;
+    function setConditionalFilter(filterExpr: string): void;
     function setDefaultHooks(hooks: {
         beforeEach?: TestFunction;
         afterEach?: TestFunction;
