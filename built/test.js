@@ -4,7 +4,7 @@ const testUtils_1 = require("./testUtils");
 var Test;
 (function (Test) {
     let filter = process.env.JASMINE_COOKIES_FILTER;
-    let suiteName = null;
+    let suiteName;
     let defaultBeforeEach;
     let defaultBeforeAll;
     let defaultAfterEach;
@@ -20,29 +20,25 @@ var Test;
         defaultAfterAll = hooks.afterAll;
     }
     Test.setDefaultHooks = setDefaultHooks;
-    function Describe(descriptionOrSuiteOptions, func) {
-        let beforeEachHook;
-        let beforeAllHook;
-        let afterEachHook;
-        let afterAllHook;
-        if (typeof descriptionOrSuiteOptions === 'string') {
-            suiteName = descriptionOrSuiteOptions;
+    function Describe(suiteNameOrSuiteOptions, func) {
+        if (typeof suiteNameOrSuiteOptions === 'string') {
+            suiteName = suiteNameOrSuiteOptions;
         }
         else {
-            suiteName = descriptionOrSuiteOptions.name;
-            beforeEachHook = descriptionOrSuiteOptions.beforeEach ? descriptionOrSuiteOptions.beforeEach : defaultBeforeEach;
-            beforeAllHook = descriptionOrSuiteOptions.beforeAll ? descriptionOrSuiteOptions.beforeAll : defaultBeforeAll;
-            afterEachHook = descriptionOrSuiteOptions.afterEach ? descriptionOrSuiteOptions.afterEach : defaultAfterEach;
-            afterAllHook = descriptionOrSuiteOptions.afterAll ? descriptionOrSuiteOptions.afterAll : defaultAfterAll;
+            suiteName = suiteNameOrSuiteOptions.name;
         }
-        if (beforeEachHook)
-            beforeEach(beforeEachHook);
-        if (beforeAllHook)
-            beforeAll(beforeAllHook);
-        if (afterEachHook)
-            afterEach(afterEachHook);
-        if (afterAllHook)
-            afterAll(afterAllHook);
+        const currentBeforeEach = suiteNameOrSuiteOptions.beforeEach ? suiteNameOrSuiteOptions.beforeEach : defaultBeforeEach ? defaultBeforeEach : null;
+        const currentBeforeAll = suiteNameOrSuiteOptions.beforeAll ? suiteNameOrSuiteOptions.beforeAll : defaultBeforeAll ? defaultBeforeAll : null;
+        const currentAfterEach = suiteNameOrSuiteOptions.afterEach ? suiteNameOrSuiteOptions.afterEach : defaultAfterEach ? defaultAfterEach : null;
+        const currentAfterAll = suiteNameOrSuiteOptions.afterAll ? suiteNameOrSuiteOptions.afterAll : defaultAfterAll ? defaultAfterAll : null;
+        if (currentBeforeEach)
+            beforeEach(currentBeforeEach);
+        if (currentBeforeAll)
+            beforeAll(currentBeforeAll);
+        if (currentAfterEach)
+            afterEach(currentAfterEach);
+        if (currentAfterAll)
+            afterAll(currentAfterAll);
         describe(suiteName, func);
     }
     Test.Describe = Describe;

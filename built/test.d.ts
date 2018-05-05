@@ -11,7 +11,7 @@ export declare namespace Test {
         beforeAll?: TestFunction;
         afterAll?: TestFunction;
     }): void;
-    function Describe(descriptionOrSuiteOptions: SuiteOptions | string, func: () => void): void;
+    function Describe(suiteNameOrSuiteOptions: SuiteOptions | string, func: () => void): void;
     function It(testOptionsOrName: TestOptions | string, func: TestFunction): void;
     /**
      * Method is the wrapper for jasmine 'it' and designed to work with the test data from *.xlsx files, csv files or arrays.
