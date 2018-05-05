@@ -11,6 +11,8 @@
     "typescript": "2.5.3"
   },
   "scripts": {
-    "build": "tsc"
+    "clean": "rm -rf ./built",
+    "build": "npm run clean && tsc",
+    "test": "npm run clean && npm run build && jasmine ./built/test/*.test.js"
   }
 }
