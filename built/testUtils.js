@@ -3,33 +3,37 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const xlsx = require("xlsx");
 const csv_to_deep_json_1 = require("csv-to-deep-json");
 const types_1 = require("./types");
-var TestDataSourceType = types_1.Types.TestDataSourceType;
 const fs = require("fs");
+var TestDataSourceType = types_1.Types.TestDataSourceType;
 var TestUtils;
 (function (TestUtils) {
     function match(filterExpression, text) {
         if (!filterExpression || filterExpression.length === 0)
             return true;
-        return text.includes(filterExpression);
-        // const operandsPairs = [
-        //     {literal: "AND", alias: "&"},
-        //     {literal: "OR", alias: "|"},
-        //     {literal: "NOT", alias: "!"}
-        // ];
-        //
-        // const transformedExpr = filterExpression.split(" ")
-        //     .map(token => token.match(/[)(]/g) ? `${token.substring(0, 1)} ${token.substring(1, token.length)}` : token)
-        //     .reduce((f, s) => `${f} ${s}`)
-        //     .split(" ")
-        //     .map(token => {
-        //         const operandPairs = operandsPairs.filter(pair => token === pair.literal || token === pair.alias);
-        //         return operandPairs[0] ? operandPairs[0].alias :
-        //             "()".includes(token) ? token :
-        //                 `${text.includes(token)}`;
-        //     })
-        //     .reduce((f, s) => `${f} ${s}`);
-        //
-        // return !!eval(transformedExpr);
+        if (text === null || text === undefined)
+            return false;
+        // replace operands with
+        const operandsPairs = {
+            "AND": "&",
+            "OR": "|",
+            "NOT": "!"
+        };
+        let filterWithTransformedOperators = (' ' + filterExpression).slice(1); // hack for copy filter expression itself
+        Object.keys(operandsPairs).forEach(operatorDescription => filterWithTransformedOperators = filterWithTransformedOperators.replace(operatorDescription, operandsPairs[operatorDescription]));
+        // replace text chunks with bool values
+        filterWithTransformedOperators.match(/("[^"]+")|([^ \)\(&|!]+)/g)
+            .map(part => {
+            const inQuotes = part.includes('"');
+            return {
+                rawPart: part,
+                transformedPart: text.includes(inQuotes ? part.replace(/"/g, '') : part)
+            };
+        }).forEach(pair => {
+            const textToReplace = pair.rawPart;
+            const valToReplace = pair.transformedPart;
+            filterWithTransformedOperators = filterWithTransformedOperators.replace(textToReplace, String(valToReplace));
+        });
+        return !!eval(filterWithTransformedOperators);
     }
     TestUtils.match = match;
     function filterByPropertyValue(testData, filterBy) {

@@ -1,12 +1,12 @@
 import * as xlsx from "xlsx";
 import {CsvToDeepJson} from "csv-to-deep-json";
 import {Types} from "./types";
+import * as fs from "fs";
 import TestDataFilter = Types.TestDataFilter;
 import DataSourceInfo = Types.DataSourceInfo;
 import TestDataSourceType = Types.TestDataSourceType;
 import XlsxDataSourceInfo = Types.XlsxDataSourceInfo;
 import TestFunction = Types.TestFunction;
-import * as fs from "fs";
 
 
 export namespace TestUtils {
@@ -15,26 +15,33 @@ export namespace TestUtils {
 
     export function match(filterExpression: string, text: string): boolean {
         if (!filterExpression || filterExpression.length === 0) return true;
-        return text.includes(filterExpression);
-        // const operandsPairs = [
-        //     {literal: "AND", alias: "&"},
-        //     {literal: "OR", alias: "|"},
-        //     {literal: "NOT", alias: "!"}
-        // ];
-        //
-        // const transformedExpr = filterExpression.split(" ")
-        //     .map(token => token.match(/[)(]/g) ? `${token.substring(0, 1)} ${token.substring(1, token.length)}` : token)
-        //     .reduce((f, s) => `${f} ${s}`)
-        //     .split(" ")
-        //     .map(token => {
-        //         const operandPairs = operandsPairs.filter(pair => token === pair.literal || token === pair.alias);
-        //         return operandPairs[0] ? operandPairs[0].alias :
-        //             "()".includes(token) ? token :
-        //                 `${text.includes(token)}`;
-        //     })
-        //     .reduce((f, s) => `${f} ${s}`);
-        //
-        // return !!eval(transformedExpr);
+        if (text === null || text === undefined) return false;
+
+        // replace operands with
+        const operandsPairs = {
+            "AND": "&",
+            "OR": "|",
+            "NOT": "!"
+        };
+
+        let filterWithTransformedOperators = (' ' + filterExpression).slice(1); // hack for copy filter expression itself
+        Object.keys(operandsPairs).forEach(operatorDescription => filterWithTransformedOperators = filterWithTransformedOperators.replace(operatorDescription, operandsPairs[operatorDescription]));
+
+        // replace text chunks with bool values
+        filterWithTransformedOperators.match(/("[^"]+")|([^ \)\(&|!]+)/g)
+            .map(part => {
+                const inQuotes = part.includes('"');
+                return {
+                    rawPart: part,
+                    transformedPart: text.includes(inQuotes ? part.replace(/"/g, '') : part)
+                };
+            }).forEach(pair => {
+            const textToReplace = pair.rawPart;
+            const valToReplace = pair.transformedPart;
+            filterWithTransformedOperators = filterWithTransformedOperators.replace(textToReplace, String(valToReplace));
+        });
+
+        return !!eval(filterWithTransformedOperators);
     }
 
     export function filterByPropertyValue(testData: any, filterBy: TestDataFilter): boolean {
@@ -50,7 +57,7 @@ export namespace TestUtils {
         if (dataSource.type === TestDataSourceType.XLSX) {
             return prepareTestDataFromXlsx(dataSource);
         } else if (dataSource.type === TestDataSourceType.CSV) {
-                return prepareTestDataFromCsv(dataSource);
+            return prepareTestDataFromCsv(dataSource);
         } else {
             return dataSource.source;
         }
@@ -78,17 +85,17 @@ export namespace TestUtils {
     // export function addJiraProcessing(jiraTestOptions: JiraTestOptions, testFunc: TestFunction): TestFunction {
     //     return jiraTestOptions
     //         ? mergeFunctions(testFunc, false, async () => {
-                // const jira = new JiraClient();
-                // if (jiraTestOptions.issueId) {
-                //     AllureReporterExtensions.addArgument("JIRA ISSUE LINK", `${jira.config.protocol}://${jira.config.host}/browse/${jiraTestOptions.issueId}`);
-                // }
-                // if (jiraTestOptions.applyLabels) {
-                //     await jira.issue(WithField.id.value(jiraTestOptions.issueId))
-                //         .appendLabels(...jiraTestOptions.applyLabels)
-                //         .catch(error => console.error(error))
-                // }
-            // })
-            // : testFunc;
+    // const jira = new JiraClient();
+    // if (jiraTestOptions.issueId) {
+    //     AllureReporterExtensions.addArgument("JIRA ISSUE LINK", `${jira.config.protocol}://${jira.config.host}/browse/${jiraTestOptions.issueId}`);
+    // }
+    // if (jiraTestOptions.applyLabels) {
+    //     await jira.issue(WithField.id.value(jiraTestOptions.issueId))
+    //         .appendLabels(...jiraTestOptions.applyLabels)
+    //         .catch(error => console.error(error))
+    // }
+    // })
+    // : testFunc;
     // }
 
     function mergeFunctions(mainFunction: Function, haveArgs: boolean, ...otherFunctions: Function[]): TestFunction {
