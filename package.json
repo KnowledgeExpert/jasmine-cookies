@@ -5,6 +5,7 @@
   "typings": "built/index.d.ts",
   "dependencies": {
     "@types/jasmine": "2.6.0",
+    "jasmine": "3.1.0",
     "@types/node": "9.6.4",
     "csv-to-deep-json": "git+ssh://git@github.com/KnowledgeExpert/csv-to-deep-json.git",
     "xlsx": "0.12.7",
