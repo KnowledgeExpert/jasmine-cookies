@@ -36,7 +36,7 @@ export namespace Test {
         defaultAfterAll = hooks.afterAll;
     }
 
-    export function Describe(suiteNameOrSuiteOptions: SuiteOptions | string, func: () => void) {
+    export function Describe(suiteNameOrSuiteOptions: string | SuiteOptions, func: () => void) {
         if (typeof suiteNameOrSuiteOptions === 'string') {
             suiteName = suiteNameOrSuiteOptions;
         } else {
@@ -56,8 +56,8 @@ export namespace Test {
         describe(suiteName, func);
     }
 
-    export function It(testOptionsOrName: TestOptions | string, func: TestFunction) {
-        const test = typeof testOptionsOrName === 'string' ? testOptionsOrName : testOptionsOrName.name;
+    export function It(testNameOrTestOptions: string | TestOptions, func: TestFunction) {
+        const test = typeof testNameOrTestOptions === 'string' ? testNameOrTestOptions : testNameOrTestOptions.name;
         const suite = suiteName ? `${suiteName} ` : '';
         const fullTestName = `${suite}${test}`;
 
