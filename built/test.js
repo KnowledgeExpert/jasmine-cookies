@@ -47,8 +47,8 @@ var Test;
         describe(suiteName, func);
     }
     Test.Describe = Describe;
-    function It(testOptionsOrName, func) {
-        const test = typeof testOptionsOrName === 'string' ? testOptionsOrName : testOptionsOrName.name;
+    function It(testNameOrTestOptions, func) {
+        const test = typeof testNameOrTestOptions === 'string' ? testNameOrTestOptions : testNameOrTestOptions.name;
         const suite = suiteName ? `${suiteName} ` : '';
         const fullTestName = `${suite}${test}`;
         if (includesFilter && fullTestName.includes(includesFilter)) {
