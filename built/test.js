@@ -25,17 +25,17 @@ var Test;
         defaultAfterAll = hooks.afterAll;
     }
     Test.setDefaultHooks = setDefaultHooks;
-    function Describe(suiteNameOrSuiteOptions, func) {
-        if (typeof suiteNameOrSuiteOptions === 'string') {
-            suiteName = suiteNameOrSuiteOptions;
+    function Describe(suiteNameOrOptions, func) {
+        if (typeof suiteNameOrOptions === 'string') {
+            suiteName = suiteNameOrOptions;
         }
         else {
-            suiteName = suiteNameOrSuiteOptions.name;
+            suiteName = suiteNameOrOptions.suite;
         }
-        const currentBeforeEach = suiteNameOrSuiteOptions.beforeEach ? suiteNameOrSuiteOptions.beforeEach : defaultBeforeEach ? defaultBeforeEach : null;
-        const currentBeforeAll = suiteNameOrSuiteOptions.beforeAll ? suiteNameOrSuiteOptions.beforeAll : defaultBeforeAll ? defaultBeforeAll : null;
-        const currentAfterEach = suiteNameOrSuiteOptions.afterEach ? suiteNameOrSuiteOptions.afterEach : defaultAfterEach ? defaultAfterEach : null;
-        const currentAfterAll = suiteNameOrSuiteOptions.afterAll ? suiteNameOrSuiteOptions.afterAll : defaultAfterAll ? defaultAfterAll : null;
+        const currentBeforeEach = suiteNameOrOptions.beforeEach ? suiteNameOrOptions.beforeEach : defaultBeforeEach ? defaultBeforeEach : null;
+        const currentBeforeAll = suiteNameOrOptions.beforeAll ? suiteNameOrOptions.beforeAll : defaultBeforeAll ? defaultBeforeAll : null;
+        const currentAfterEach = suiteNameOrOptions.afterEach ? suiteNameOrOptions.afterEach : defaultAfterEach ? defaultAfterEach : null;
+        const currentAfterAll = suiteNameOrOptions.afterAll ? suiteNameOrOptions.afterAll : defaultAfterAll ? defaultAfterAll : null;
         if (currentBeforeEach)
             beforeEach(currentBeforeEach);
         if (currentBeforeAll)
@@ -47,8 +47,8 @@ var Test;
         describe(suiteName, func);
     }
     Test.Describe = Describe;
-    function It(testNameOrTestOptions, func) {
-        const test = typeof testNameOrTestOptions === 'string' ? testNameOrTestOptions : testNameOrTestOptions.name;
+    function It(testNameOrOptions, func) {
+        const test = typeof testNameOrOptions === 'string' ? testNameOrOptions : testNameOrOptions.case;
         const suite = suiteName ? `${suiteName} ` : '';
         const fullTestName = `${suite}${test}`;
         if (includesFilter && fullTestName.includes(includesFilter)) {
@@ -72,7 +72,7 @@ var Test;
         for (const testData of testUtils_1.TestUtils.prepareTestDataFrom(ptestOptions.data)) {
             if (testUtils_1.TestUtils.filterByPropertyValue(testData, ptestOptions.filterBy)) {
                 It({
-                    name: testData.description,
+                    case: testData.description,
                 }, func.bind(this, testData));
             }
         }

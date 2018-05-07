@@ -1,7 +1,10 @@
 import { Test } from "./test";
+export { Test };
 export declare const Describe: typeof Test.Describe;
-export declare const pIt: typeof Test.pIt;
 export declare const It: typeof Test.It;
+export declare const test: typeof Test.It;
+export declare const pIt: typeof Test.pIt;
+export declare const pTest: typeof Test.pIt;
 export declare const filter: typeof Test.setIncludesFilter;
 export declare const conditionalFilter: typeof Test.setConditionalFilter;
 export declare const setDefaultHooks: typeof Test.setDefaultHooks;

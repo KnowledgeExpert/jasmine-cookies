@@ -19,13 +19,13 @@ export namespace Types {
     }
 
     export type TestOptions = {
-        name: string,
+        case: string,
         filterExpression?: string,
         // jira?: JiraTestOptions
     }
 
     export type SuiteOptions = {
-        name: string,
+        suite: string,
         beforeEach?: TestFunction,
         afterEach?: TestFunction,
         beforeAll?: TestFunction,

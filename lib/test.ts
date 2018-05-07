@@ -36,17 +36,17 @@ export namespace Test {
         defaultAfterAll = hooks.afterAll;
     }
 
-    export function Describe(suiteNameOrSuiteOptions: string | SuiteOptions, func: () => void) {
-        if (typeof suiteNameOrSuiteOptions === 'string') {
-            suiteName = suiteNameOrSuiteOptions;
+    export function Describe(suiteNameOrOptions: string | SuiteOptions, func: () => void) {
+        if (typeof suiteNameOrOptions === 'string') {
+            suiteName = suiteNameOrOptions;
         } else {
-            suiteName = suiteNameOrSuiteOptions.name;
+            suiteName = suiteNameOrOptions.suite;
         }
 
-        const currentBeforeEach = (suiteNameOrSuiteOptions as any).beforeEach ? (suiteNameOrSuiteOptions as any).beforeEach : defaultBeforeEach ? defaultBeforeEach : null;
-        const currentBeforeAll = (suiteNameOrSuiteOptions as any).beforeAll ? (suiteNameOrSuiteOptions as any).beforeAll : defaultBeforeAll ? defaultBeforeAll : null;
-        const currentAfterEach = (suiteNameOrSuiteOptions as any).afterEach ? (suiteNameOrSuiteOptions as any).afterEach : defaultAfterEach ? defaultAfterEach : null;
-        const currentAfterAll = (suiteNameOrSuiteOptions as any).afterAll ? (suiteNameOrSuiteOptions as any).afterAll : defaultAfterAll ? defaultAfterAll : null;
+        const currentBeforeEach = (suiteNameOrOptions as any).beforeEach ? (suiteNameOrOptions as any).beforeEach : defaultBeforeEach ? defaultBeforeEach : null;
+        const currentBeforeAll = (suiteNameOrOptions as any).beforeAll ? (suiteNameOrOptions as any).beforeAll : defaultBeforeAll ? defaultBeforeAll : null;
+        const currentAfterEach = (suiteNameOrOptions as any).afterEach ? (suiteNameOrOptions as any).afterEach : defaultAfterEach ? defaultAfterEach : null;
+        const currentAfterAll = (suiteNameOrOptions as any).afterAll ? (suiteNameOrOptions as any).afterAll : defaultAfterAll ? defaultAfterAll : null;
 
         if (currentBeforeEach) beforeEach(currentBeforeEach);
         if (currentBeforeAll) beforeAll(currentBeforeAll);
@@ -56,8 +56,8 @@ export namespace Test {
         describe(suiteName, func);
     }
 
-    export function It(testNameOrTestOptions: string | TestOptions, func: TestFunction) {
-        const test = typeof testNameOrTestOptions === 'string' ? testNameOrTestOptions : testNameOrTestOptions.name;
+    export function It(testNameOrOptions: string | TestOptions, func: TestFunction) {
+        const test = typeof testNameOrOptions === 'string' ? testNameOrOptions : testNameOrOptions.case;
         const suite = suiteName ? `${suiteName} ` : '';
         const fullTestName = `${suite}${test}`;
 
@@ -80,7 +80,7 @@ export namespace Test {
         for (const testData of TestUtils.prepareTestDataFrom(ptestOptions.data)) {
             if (TestUtils.filterByPropertyValue(testData, ptestOptions.filterBy)) {
                 It({
-                    name: testData.description,
+                    case: testData.description,
                     // jira: ptestOptions.jira
                 }, func.bind(this, testData));
             }

@@ -30,11 +30,11 @@ export declare namespace Types {
         filterBy?: TestDataFilter;
     };
     type TestOptions = {
-        name: string;
+        case: string;
         filterExpression?: string;
     };
     type SuiteOptions = {
-        name: string;
+        suite: string;
         beforeEach?: TestFunction;
         afterEach?: TestFunction;
         beforeAll?: TestFunction;
