@@ -1,4 +1,4 @@
-import { Types } from "./types";
+import { Types } from './types';
 import TestDataFilter = Types.TestDataFilter;
 import DataSourceInfo = Types.DataSourceInfo;
 export declare namespace TestUtils {

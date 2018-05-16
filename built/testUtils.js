@@ -14,9 +14,9 @@ var TestUtils;
             return false;
         // replace operands with
         const operandsPairs = {
-            "AND": "&",
-            "OR": "|",
-            "NOT": "!"
+            'AND': '&',
+            'OR': '|',
+            'NOT': '!'
         };
         let filterWithTransformedOperators = (' ' + filterExpression).slice(1); // hack for copy filter expression itself
         Object.keys(operandsPairs).forEach(operatorDescription => filterWithTransformedOperators = filterWithTransformedOperators.replace(operatorDescription, operandsPairs[operatorDescription]));

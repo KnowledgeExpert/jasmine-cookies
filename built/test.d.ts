@@ -1,4 +1,4 @@
-import { Types } from "./types";
+import { Types } from './types';
 import TestFunction = Types.TestFunction;
 import PTestOptions = Types.PTestOptions;
 import TestOptions = Types.TestOptions;

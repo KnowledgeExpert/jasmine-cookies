@@ -1,7 +1,7 @@
-import * as xlsx from "xlsx";
-import {CsvToDeepJson} from "csv-to-deep-json";
-import {Types} from "./types";
-import * as fs from "fs";
+import * as xlsx from 'xlsx';
+import {CsvToDeepJson} from 'csv-to-deep-json';
+import {Types} from './types';
+import * as fs from 'fs';
 import TestDataFilter = Types.TestDataFilter;
 import DataSourceInfo = Types.DataSourceInfo;
 import TestDataSourceType = Types.TestDataSourceType;
@@ -19,9 +19,9 @@ export namespace TestUtils {
 
         // replace operands with
         const operandsPairs = {
-            "AND": "&",
-            "OR": "|",
-            "NOT": "!"
+            'AND': '&',
+            'OR': '|',
+            'NOT': '!'
         };
 
         let filterWithTransformedOperators = (' ' + filterExpression).slice(1); // hack for copy filter expression itself

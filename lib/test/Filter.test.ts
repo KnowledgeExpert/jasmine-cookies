@@ -1,15 +1,15 @@
-import {TestUtils} from "../testUtils";
-import {Test} from "../test";
+import {TestUtils} from '../testUtils';
+import {Test} from '../test';
 import Describe = Test.Describe;
 import It = Test.It;
 
 
-Describe(`Filter matcher`, () => {
+Describe('Filter matcher', () => {
     const match = TestUtils.match;
 
     [
-        {filter: null, text: `foo`},
-        {filter: null, text: ``},
+        {filter: null, text: 'foo'},
+        {filter: null, text: ''},
         {filter: null, text: null}
     ].forEach(data => {
         It(`Should match anything if filter is null\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
@@ -17,23 +17,23 @@ Describe(`Filter matcher`, () => {
         })
     });
 
-    It(`Should not match if text is null`, () => {
+    It('Should not match if text is null', () => {
         expect(match('foo', null)).toBe(false);
     });
 
-    It(`Should match exact text`, () => {
-        expect(match(`foo`, `foo`)).toBe(true);
+    It('Should match exact text', () => {
+        expect(match('foo', 'foo')).toBe(true);
     });
 
-    It(`Should match exact text with spaces`, () => {
-        expect(match(`"foo bar"`, `foo bar`)).toBe(true);
+    It('Should match exact text with spaces', () => {
+        expect(match('"foo bar"', 'foo bar')).toBe(true);
     });
 
     [
-        {filter: `foo`, text: `foobar`},
-        {filter: `foo`, text: `foo bar`},
-        {filter: `foo`, text: `barfoo`},
-        {filter: `foo`, text: `bar foo`},
+        {filter: 'foo', text: 'foobar'},
+        {filter: 'foo', text: 'foo bar'},
+        {filter: 'foo', text: 'barfoo'},
+        {filter: 'foo', text: 'bar foo'},
     ].forEach(data => {
         It(`Should match includes text\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
             expect(match(data.filter, data.text)).toBe(true);
@@ -41,10 +41,10 @@ Describe(`Filter matcher`, () => {
     });
 
     [
-        {filter: `"foo bar"`, text: `foo bardice`},
-        {filter: `"foo bar"`, text: `foo bar dice`},
-        {filter: `"foo bar"`, text: `dicefoo bar`},
-        {filter: `"foo bar"`, text: `dice foo bar`},
+        {filter: '"foo bar"', text: 'foo bardice'},
+        {filter: '"foo bar"', text: 'foo bar dice'},
+        {filter: '"foo bar"', text: 'dicefoo bar'},
+        {filter: '"foo bar"', text: 'dice foo bar'},
     ].forEach(data => {
         It(`Should match includes text with spaces\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
             expect(match(data.filter, data.text)).toBe(true);
@@ -52,12 +52,12 @@ Describe(`Filter matcher`, () => {
     });
 
     [
-        {filter: `foo OR bar`, text: `foo dice`},
-        {filter: `foo OR bar`, text: `foodice`},
-        {filter: `foo OR bar`, text: `dice bar`},
-        {filter: `foo OR bar`, text: `dicebar`},
+        {filter: 'foo OR bar', text: 'foo dice'},
+        {filter: 'foo OR bar', text: 'foodice'},
+        {filter: 'foo OR bar', text: 'dice bar'},
+        {filter: 'foo OR bar', text: 'dicebar'},
 
-        {filter: `foo | bar`, text: `foo dice`},
+        {filter: 'foo | bar', text: 'foo dice'},
     ].forEach(data => {
         It(`Should match includes text with OR operator\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
             expect(match(data.filter, data.text)).toBe(true);

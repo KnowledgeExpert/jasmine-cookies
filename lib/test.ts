@@ -1,5 +1,5 @@
-import {TestUtils} from "./testUtils";
-import {Types} from "./types";
+import {TestUtils} from './testUtils';
+import {Types} from './types';
 import TestFunction = Types.TestFunction;
 import PTestOptions = Types.PTestOptions;
 import TestOptions = Types.TestOptions;

@@ -1,4 +1,4 @@
-import {Test} from "./test";
+import {Test} from './test';
 
 export {Test};
 export const Describe = Test.Describe;
@@ -10,5 +10,5 @@ export const filter = Test.setIncludesFilter;
 export const conditionalFilter = Test.setConditionalFilter;
 export const setDefaultHooks = Test.setDefaultHooks;
 
-import {Types} from "./types";
+import {Types} from './types';
 export const TestDataSourceType = Types.TestDataSourceType;
