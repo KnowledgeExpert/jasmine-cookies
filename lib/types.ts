@@ -15,13 +15,11 @@ export namespace Types {
     export type PTestOptions = {
         data: DataSourceInfo,
         filterBy?: TestDataFilter
-        // jira?: JiraTestOptions
     }
 
     export type TestOptions = {
         case: string,
-        filterExpression?: string,
-        // jira?: JiraTestOptions
+        filterExpression?: string
     }
 
     export type SuiteOptions = {
@@ -32,8 +30,4 @@ export namespace Types {
         afterAll?: TestFunction
     }
 
-    // export type JiraTestOptions = {
-    //     issueId: string,
-    //     applyLabels?: string[]
-    // }
 }

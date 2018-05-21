@@ -1,11 +1,16 @@
-import {TestUtils} from '../testUtils';
-import {Test} from '../test';
-import Describe = Test.Describe;
-import It = Test.It;
+import {Describe as descr} from '../describe';
+import {It as it} from '../it';
+import {Filter} from '../filter';
+
+const Describe = descr.build;
+const It = it.build;
 
 
-Describe('Filter matcher', () => {
-    const match = TestUtils.match;
+Describe(`Conditional filter`, () => {
+    const match = (filter, text) => {
+        Filter.setConditionalFilter(filter);
+        return Filter.conditionalFilterMatch(text);
+    };
 
     [
         {filter: null, text: 'foo'},
@@ -25,8 +30,8 @@ Describe('Filter matcher', () => {
         expect(match('foo', 'foo')).toBe(true);
     });
 
-    It('Should match exact text with spaces', () => {
-        expect(match('"foo bar"', 'foo bar')).toBe(true);
+    It(`Should match exact text with spaces`, () => {
+        expect(match(`'foo bar'`, `foo bar`)).toBe(true);
     });
 
     [
@@ -41,10 +46,10 @@ Describe('Filter matcher', () => {
     });
 
     [
-        {filter: '"foo bar"', text: 'foo bardice'},
-        {filter: '"foo bar"', text: 'foo bar dice'},
-        {filter: '"foo bar"', text: 'dicefoo bar'},
-        {filter: '"foo bar"', text: 'dice foo bar'},
+        {filter: `'foo bar'`, text: `foo bardice`},
+        {filter: `'foo bar'`, text: `foo bar dice`},
+        {filter: `'foo bar'`, text: `dicefoo bar`},
+        {filter: `'foo bar'`, text: `dice foo bar`},
     ].forEach(data => {
         It(`Should match includes text with spaces\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
             expect(match(data.filter, data.text)).toBe(true);
@@ -105,7 +110,7 @@ Describe('Filter matcher', () => {
     });
 
     [
-        {filter: `("hello world" | dicenice) & !dragon"`, text: `hello world dicenice foo`},
+        {filter: `('hello world' | dicenice) & !dragon'`, text: `hello world dicenice foo`},
     ].forEach(data => {
         It(`Should match complex expressions\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
             expect(match(data.filter, data.text)).toBe(true);

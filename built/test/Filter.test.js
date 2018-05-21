@@ -1,11 +1,15 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const testUtils_1 = require("../testUtils");
-const test_1 = require("../test");
-var Describe = test_1.Test.Describe;
-var It = test_1.Test.It;
-Describe('Filter matcher', () => {
-    const match = testUtils_1.TestUtils.match;
+const describe_1 = require("../describe");
+const it_1 = require("../it");
+const filter_1 = require("../filter");
+const Describe = describe_1.Describe.build;
+const It = it_1.It.build;
+Describe(`Conditional filter`, () => {
+    const match = (filter, text) => {
+        filter_1.Filter.setConditionalFilter(filter);
+        return filter_1.Filter.conditionalFilterMatch(text);
+    };
     [
         { filter: null, text: 'foo' },
         { filter: null, text: '' },
@@ -21,8 +25,8 @@ Describe('Filter matcher', () => {
     It('Should match exact text', () => {
         expect(match('foo', 'foo')).toBe(true);
     });
-    It('Should match exact text with spaces', () => {
-        expect(match('"foo bar"', 'foo bar')).toBe(true);
+    It(`Should match exact text with spaces`, () => {
+        expect(match(`'foo bar'`, `foo bar`)).toBe(true);
     });
     [
         { filter: 'foo', text: 'foobar' },
@@ -35,10 +39,10 @@ Describe('Filter matcher', () => {
         });
     });
     [
-        { filter: '"foo bar"', text: 'foo bardice' },
-        { filter: '"foo bar"', text: 'foo bar dice' },
-        { filter: '"foo bar"', text: 'dicefoo bar' },
-        { filter: '"foo bar"', text: 'dice foo bar' },
+        { filter: `'foo bar'`, text: `foo bardice` },
+        { filter: `'foo bar'`, text: `foo bar dice` },
+        { filter: `'foo bar'`, text: `dicefoo bar` },
+        { filter: `'foo bar'`, text: `dice foo bar` },
     ].forEach(data => {
         It(`Should match includes text with spaces\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
             expect(match(data.filter, data.text)).toBe(true);
@@ -88,7 +92,7 @@ Describe('Filter matcher', () => {
         });
     });
     [
-        { filter: `("hello world" | dicenice) & !dragon"`, text: `hello world dicenice foo` },
+        { filter: `('hello world' | dicenice) & !dragon'`, text: `hello world dicenice foo` },
     ].forEach(data => {
         It(`Should match complex expressions\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
             expect(match(data.filter, data.text)).toBe(true);
