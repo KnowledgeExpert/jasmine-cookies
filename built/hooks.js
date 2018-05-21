@@ -3,6 +3,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const utils_1 = require("./utils");
 var Hooks;
 (function (Hooks) {
+    function beforeEach() {
+        return Hooks.defaultBeforeEach;
+    }
+    Hooks.beforeEach = beforeEach;
+    function beforeAll() {
+        return Hooks.defaultBeforeAll;
+    }
+    Hooks.beforeAll = beforeAll;
+    function afterEach() {
+        return Hooks.defaultAfterEach;
+    }
+    Hooks.afterEach = afterEach;
+    function afterAll() {
+        return Hooks.defaultAfterAll;
+    }
+    Hooks.afterAll = afterAll;
     function setDefault(hooks) {
         if (hooks) {
             Hooks.defaultBeforeEach = hooks.beforeEach ? hooks.beforeEach : Hooks.defaultBeforeEach;

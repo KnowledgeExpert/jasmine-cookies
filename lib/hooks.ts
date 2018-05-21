@@ -9,6 +9,21 @@ export namespace Hooks {
     export let defaultAfterEach: TestFunction | null;
     export let defaultAfterAll: TestFunction | null;
 
+    export function beforeEach() {
+        return defaultBeforeEach;
+    }
+
+    export function beforeAll() {
+        return defaultBeforeAll;
+    }
+
+    export function afterEach() {
+        return defaultAfterEach;
+    }
+
+    export function afterAll() {
+        return defaultAfterAll;
+    }
 
     export function setDefault(hooks: {
         beforeEach?: TestFunction,

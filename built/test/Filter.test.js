@@ -26,7 +26,7 @@ Describe(`Conditional filter`, () => {
         expect(match('foo', 'foo')).toBe(true);
     });
     It(`Should match exact text with spaces`, () => {
-        expect(match(`'foo bar'`, `foo bar`)).toBe(true);
+        expect(match(`"foo bar"`, `foo bar`)).toBe(true);
     });
     [
         { filter: 'foo', text: 'foobar' },
@@ -39,10 +39,10 @@ Describe(`Conditional filter`, () => {
         });
     });
     [
-        { filter: `'foo bar'`, text: `foo bardice` },
-        { filter: `'foo bar'`, text: `foo bar dice` },
-        { filter: `'foo bar'`, text: `dicefoo bar` },
-        { filter: `'foo bar'`, text: `dice foo bar` },
+        { filter: `"foo bar"`, text: `foo bardice` },
+        { filter: `"foo bar"`, text: `foo bar dice` },
+        { filter: `"foo bar"`, text: `dicefoo bar` },
+        { filter: `"foo bar"`, text: `dice foo bar` },
     ].forEach(data => {
         It(`Should match includes text with spaces\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
             expect(match(data.filter, data.text)).toBe(true);
@@ -92,7 +92,7 @@ Describe(`Conditional filter`, () => {
         });
     });
     [
-        { filter: `('hello world' | dicenice) & !dragon'`, text: `hello world dicenice foo` },
+        { filter: `("hello world" | dicenice) & !dragon`, text: `hello world dicenice foo` },
     ].forEach(data => {
         It(`Should match complex expressions\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
             expect(match(data.filter, data.text)).toBe(true);

@@ -5,6 +5,10 @@ export declare namespace Hooks {
     let defaultBeforeAll: TestFunction | null;
     let defaultAfterEach: TestFunction | null;
     let defaultAfterAll: TestFunction | null;
+    function beforeEach(): Types.TestFunction;
+    function beforeAll(): Types.TestFunction;
+    function afterEach(): Types.TestFunction;
+    function afterAll(): Types.TestFunction;
     function setDefault(hooks: {
         beforeEach?: TestFunction;
         afterEach?: TestFunction;

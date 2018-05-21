@@ -1,10 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const hooks_1 = require("./hooks");
-var defaultBeforeEach = hooks_1.Hooks.defaultBeforeEach;
-var defaultBeforeAll = hooks_1.Hooks.defaultBeforeAll;
-var defaultAfterEach = hooks_1.Hooks.defaultAfterEach;
-var defaultAfterAll = hooks_1.Hooks.defaultAfterAll;
 var Describe;
 (function (Describe) {
     function build(suiteNameOrOptions, func) {
@@ -14,10 +10,10 @@ var Describe;
         else {
             Describe.currentSuiteName = suiteNameOrOptions.suite;
         }
-        const currentBeforeEach = suiteNameOrOptions.beforeEach ? suiteNameOrOptions.beforeEach : defaultBeforeEach ? defaultBeforeEach : null;
-        const currentBeforeAll = suiteNameOrOptions.beforeAll ? suiteNameOrOptions.beforeAll : defaultBeforeAll ? defaultBeforeAll : null;
-        const currentAfterEach = suiteNameOrOptions.afterEach ? suiteNameOrOptions.afterEach : defaultAfterEach ? defaultAfterEach : null;
-        const currentAfterAll = suiteNameOrOptions.afterAll ? suiteNameOrOptions.afterAll : defaultAfterAll ? defaultAfterAll : null;
+        const currentBeforeEach = suiteNameOrOptions.beforeEach ? suiteNameOrOptions.beforeEach : hooks_1.Hooks.beforeEach() ? hooks_1.Hooks.beforeEach() : null;
+        const currentBeforeAll = suiteNameOrOptions.beforeAll ? suiteNameOrOptions.beforeAll : hooks_1.Hooks.beforeAll() ? hooks_1.Hooks.beforeAll() : null;
+        const currentAfterEach = suiteNameOrOptions.afterEach ? suiteNameOrOptions.afterEach : hooks_1.Hooks.afterEach() ? hooks_1.Hooks.afterEach() : null;
+        const currentAfterAll = suiteNameOrOptions.afterAll ? suiteNameOrOptions.afterAll : hooks_1.Hooks.afterAll() ? hooks_1.Hooks.afterAll() : null;
         if (currentBeforeEach)
             beforeEach(currentBeforeEach);
         if (currentBeforeAll)

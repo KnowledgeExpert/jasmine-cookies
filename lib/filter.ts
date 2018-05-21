@@ -29,10 +29,11 @@ export namespace Filter {
         };
 
         let filterWithTransformedOperators = (' ' + conditionalFilter).slice(1); // hack for copy filter expression itself
-        Object.keys(operandsPairs).forEach(operatorDescription => filterWithTransformedOperators = filterWithTransformedOperators.replace(operatorDescription, operandsPairs[operatorDescription]));
+        Object.keys(operandsPairs)
+            .forEach(operatorDescription => filterWithTransformedOperators = filterWithTransformedOperators.replace(operatorDescription, operandsPairs[operatorDescription]));
 
         // replace text chunks with bool values
-        filterWithTransformedOperators.match(/('[^']+')|([^ \)\(&|!]+)/g)
+        filterWithTransformedOperators.match(/("[^"]+")|([^ \)\(&|!]+)/g)
             .map(part => {
                 const inQuotes = part.includes('"');
                 return {

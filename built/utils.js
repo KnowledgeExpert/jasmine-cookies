@@ -62,12 +62,5 @@ var Utils;
         return !func ? false : func.toString().startsWith('async');
     }
     Utils.isAsync = isAsync;
-    async function resolveAll(...promises) {
-        const result = [];
-        for (const promise of promises) {
-            result.push(await promise.then(resolve => resolve, error => error));
-        }
-        return result;
-    }
 })(Utils = exports.Utils || (exports.Utils = {}));
 //# sourceMappingURL=utils.js.map
