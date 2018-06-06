@@ -12,14 +12,14 @@ var Filter;
         Filter.conditionalFilter = filterExpr;
     }
     Filter.setConditionalFilter = setConditionalFilter;
-    function includesFiletrMatch(text) {
+    function includesFilterMatch(text) {
         if (!Filter.includesFilter || Filter.includesFilter.length === 0)
             return true;
         if (text === null || text === undefined)
             return false;
         return text.includes(Filter.includesFilter);
     }
-    Filter.includesFiletrMatch = includesFiletrMatch;
+    Filter.includesFilterMatch = includesFilterMatch;
     function conditionalFilterMatch(text) {
         if (!Filter.conditionalFilter || Filter.conditionalFilter.length === 0)
             return true;

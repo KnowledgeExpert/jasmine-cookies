@@ -3,6 +3,6 @@ export declare namespace Filter {
     let conditionalFilter: string;
     function setIncludesFilter(filterExpr: string): void;
     function setConditionalFilter(filterExpr: string): void;
-    function includesFiletrMatch(text: string): boolean;
+    function includesFilterMatch(text: string): boolean;
     function conditionalFilterMatch(text: string): boolean;
 }

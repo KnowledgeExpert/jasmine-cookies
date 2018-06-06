@@ -11,7 +11,7 @@ export namespace Filter {
         conditionalFilter = filterExpr;
     }
 
-    export function includesFiletrMatch(text: string) {
+    export function includesFilterMatch(text: string) {
         if (!includesFilter || includesFilter.length === 0) return true;
         if (text === null || text === undefined) return false;
         return text.includes(includesFilter);
