@@ -1,28 +1,25 @@
 import {Types} from './types';
 import {Utils} from './utils';
 import TestFunction = Types.TestFunction;
+import {Configuration} from "./configuration";
 
 
 export namespace Hooks {
-    export let defaultBeforeEach: TestFunction | null;
-    export let defaultBeforeAll: TestFunction | null;
-    export let defaultAfterEach: TestFunction | null;
-    export let defaultAfterAll: TestFunction | null;
-
+    
     export function beforeEach() {
-        return defaultBeforeEach;
+        return Configuration.defaultBeforeEach;
     }
 
     export function beforeAll() {
-        return defaultBeforeAll;
+        return Configuration.defaultBeforeAll;
     }
 
     export function afterEach() {
-        return defaultAfterEach;
+        return Configuration.defaultAfterEach;
     }
 
     export function afterAll() {
-        return defaultAfterAll;
+        return Configuration.defaultAfterAll;
     }
 
     export function setDefault(hooks: {
@@ -32,10 +29,10 @@ export namespace Hooks {
         afterAll?: TestFunction
     }) {
         if (hooks) {
-            defaultBeforeEach = hooks.beforeEach ? hooks.beforeEach : defaultBeforeEach;
-            defaultBeforeAll = hooks.beforeAll ? hooks.beforeAll : defaultBeforeAll;
-            defaultAfterEach = hooks.afterEach ? hooks.afterEach : defaultAfterEach;
-            defaultAfterAll = hooks.afterAll ? hooks.afterAll : defaultAfterAll;
+            Configuration.defaultBeforeEach = hooks.beforeEach ? hooks.beforeEach : Configuration.defaultBeforeEach;
+            Configuration.defaultBeforeAll = hooks.beforeAll ? hooks.beforeAll : Configuration.defaultBeforeAll;
+            Configuration.defaultAfterEach = hooks.afterEach ? hooks.afterEach : Configuration.defaultAfterEach;
+            Configuration.defaultAfterAll = hooks.afterAll ? hooks.afterAll : Configuration.defaultAfterAll;
         }
     }
 
@@ -46,29 +43,29 @@ export namespace Hooks {
         afterAll?: TestFunction
     }) {
         if (hooks) {
-            defaultBeforeEach = hooks.beforeEach
-                ? defaultBeforeEach
-                    ? Utils.mergeFunctions(defaultBeforeEach, hooks.beforeEach)
+            Configuration.defaultBeforeEach = hooks.beforeEach
+                ? Configuration.defaultBeforeEach
+                    ? Utils.mergeFunctions(Configuration.defaultBeforeEach, hooks.beforeEach)
                     : hooks.beforeEach
-                : defaultBeforeEach;
+                : Configuration.defaultBeforeEach;
 
-            defaultBeforeAll = hooks.beforeAll
-                ? defaultBeforeAll
-                    ? Utils.mergeFunctions(defaultBeforeAll, hooks.beforeAll)
+            Configuration.defaultBeforeAll = hooks.beforeAll
+                ? Configuration.defaultBeforeAll
+                    ? Utils.mergeFunctions(Configuration.defaultBeforeAll, hooks.beforeAll)
                     : hooks.beforeAll
-                : defaultBeforeAll;
+                : Configuration.defaultBeforeAll;
 
-            defaultAfterEach = hooks.afterEach
-                ? defaultAfterEach
-                    ? Utils.mergeFunctions(defaultAfterEach, hooks.afterEach)
+            Configuration.defaultAfterEach = hooks.afterEach
+                ? Configuration.defaultAfterEach
+                    ? Utils.mergeFunctions(Configuration.defaultAfterEach, hooks.afterEach)
                     : hooks.afterEach
-                : defaultAfterEach;
+                : Configuration.defaultAfterEach;
 
-            defaultAfterAll = hooks.afterAll
-                ? defaultAfterAll
-                    ? Utils.mergeFunctions(defaultAfterAll, hooks.afterAll)
+            Configuration.defaultAfterAll = hooks.afterAll
+                ? Configuration.defaultAfterAll
+                    ? Utils.mergeFunctions(Configuration.defaultAfterAll, hooks.afterAll)
                     : hooks.afterAll
-                : defaultAfterAll;
+                : Configuration.defaultAfterAll;
         }
     }
 }

@@ -12,7 +12,7 @@
     "typescript": "2.5.3"
   },
   "scripts": {
-    "clean": "node cleanResources.js build",
+    "clean": "node cleanResources.js ./build",
     "build": "npm run clean && tsc",
     "test": "npm run build && jasmine ./built/test/*.test.js"
   }

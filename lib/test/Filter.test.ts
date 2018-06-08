@@ -1,6 +1,7 @@
 import {Describe as descr} from '../describe';
 import {It as it} from '../it';
 import {Filter} from '../filter';
+import {Configuration} from "../configuration";
 
 const Describe = descr.build;
 const It = it.build;
@@ -8,7 +9,7 @@ const It = it.build;
 
 Describe(`Conditional filter`, () => {
     const match = (filter, text) => {
-        Filter.setConditionalFilter(filter);
+        Configuration.conditionalFilter = filter;
         return Filter.conditionalFilterMatch(text);
     };
 
@@ -115,6 +116,46 @@ Describe(`Conditional filter`, () => {
         It(`Should match complex expressions\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
             expect(match(data.filter, data.text)).toBe(true);
         });
+    });
+
+});
+
+Describe(`Includes filter`, () => {
+    const match = (filter, text) => {
+        Configuration.includesFilter = filter;
+        return Filter.includesFilterMatch(text);
+    };
+
+    [
+        {filter: null, text: 'foo'},
+        {filter: null, text: ''},
+        {filter: null, text: null},
+
+        {filter: '', text: 'foo'},
+        {filter: '', text: ''},
+        {filter: '', text: null},
+
+        {filter: undefined, text: 'foo'},
+        {filter: undefined, text: null},
+        {filter: undefined, text: undefined}
+    ].forEach(data => {
+        It(`Should match anything if filter is falsy\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
+            expect(match(data.filter, data.text)).toBe(true);
+        });
+    });
+
+    [
+        {filter: 'foo', text: 'foobar'},
+        {filter: 'bar', text: 'foobar'},
+        {filter: 'oba', text: 'foobar'}
+    ].forEach(data => {
+        It(`Should match if text includes filter\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
+            expect(match(data.filter, data.text)).toBe(true);
+        });
+    });
+
+    It(`Should not match if text not includes filter`, () => {
+        expect(match('foo', 'bar')).toBe(false);
     });
 
 });

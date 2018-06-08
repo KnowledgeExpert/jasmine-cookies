@@ -1,55 +1,56 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const utils_1 = require("./utils");
+const configuration_1 = require("./configuration");
 var Hooks;
 (function (Hooks) {
     function beforeEach() {
-        return Hooks.defaultBeforeEach;
+        return configuration_1.Configuration.defaultBeforeEach;
     }
     Hooks.beforeEach = beforeEach;
     function beforeAll() {
-        return Hooks.defaultBeforeAll;
+        return configuration_1.Configuration.defaultBeforeAll;
     }
     Hooks.beforeAll = beforeAll;
     function afterEach() {
-        return Hooks.defaultAfterEach;
+        return configuration_1.Configuration.defaultAfterEach;
     }
     Hooks.afterEach = afterEach;
     function afterAll() {
-        return Hooks.defaultAfterAll;
+        return configuration_1.Configuration.defaultAfterAll;
     }
     Hooks.afterAll = afterAll;
     function setDefault(hooks) {
         if (hooks) {
-            Hooks.defaultBeforeEach = hooks.beforeEach ? hooks.beforeEach : Hooks.defaultBeforeEach;
-            Hooks.defaultBeforeAll = hooks.beforeAll ? hooks.beforeAll : Hooks.defaultBeforeAll;
-            Hooks.defaultAfterEach = hooks.afterEach ? hooks.afterEach : Hooks.defaultAfterEach;
-            Hooks.defaultAfterAll = hooks.afterAll ? hooks.afterAll : Hooks.defaultAfterAll;
+            configuration_1.Configuration.defaultBeforeEach = hooks.beforeEach ? hooks.beforeEach : configuration_1.Configuration.defaultBeforeEach;
+            configuration_1.Configuration.defaultBeforeAll = hooks.beforeAll ? hooks.beforeAll : configuration_1.Configuration.defaultBeforeAll;
+            configuration_1.Configuration.defaultAfterEach = hooks.afterEach ? hooks.afterEach : configuration_1.Configuration.defaultAfterEach;
+            configuration_1.Configuration.defaultAfterAll = hooks.afterAll ? hooks.afterAll : configuration_1.Configuration.defaultAfterAll;
         }
     }
     Hooks.setDefault = setDefault;
     function addDefault(hooks) {
         if (hooks) {
-            Hooks.defaultBeforeEach = hooks.beforeEach
-                ? Hooks.defaultBeforeEach
-                    ? utils_1.Utils.mergeFunctions(Hooks.defaultBeforeEach, hooks.beforeEach)
+            configuration_1.Configuration.defaultBeforeEach = hooks.beforeEach
+                ? configuration_1.Configuration.defaultBeforeEach
+                    ? utils_1.Utils.mergeFunctions(configuration_1.Configuration.defaultBeforeEach, hooks.beforeEach)
                     : hooks.beforeEach
-                : Hooks.defaultBeforeEach;
-            Hooks.defaultBeforeAll = hooks.beforeAll
-                ? Hooks.defaultBeforeAll
-                    ? utils_1.Utils.mergeFunctions(Hooks.defaultBeforeAll, hooks.beforeAll)
+                : configuration_1.Configuration.defaultBeforeEach;
+            configuration_1.Configuration.defaultBeforeAll = hooks.beforeAll
+                ? configuration_1.Configuration.defaultBeforeAll
+                    ? utils_1.Utils.mergeFunctions(configuration_1.Configuration.defaultBeforeAll, hooks.beforeAll)
                     : hooks.beforeAll
-                : Hooks.defaultBeforeAll;
-            Hooks.defaultAfterEach = hooks.afterEach
-                ? Hooks.defaultAfterEach
-                    ? utils_1.Utils.mergeFunctions(Hooks.defaultAfterEach, hooks.afterEach)
+                : configuration_1.Configuration.defaultBeforeAll;
+            configuration_1.Configuration.defaultAfterEach = hooks.afterEach
+                ? configuration_1.Configuration.defaultAfterEach
+                    ? utils_1.Utils.mergeFunctions(configuration_1.Configuration.defaultAfterEach, hooks.afterEach)
                     : hooks.afterEach
-                : Hooks.defaultAfterEach;
-            Hooks.defaultAfterAll = hooks.afterAll
-                ? Hooks.defaultAfterAll
-                    ? utils_1.Utils.mergeFunctions(Hooks.defaultAfterAll, hooks.afterAll)
+                : configuration_1.Configuration.defaultAfterEach;
+            configuration_1.Configuration.defaultAfterAll = hooks.afterAll
+                ? configuration_1.Configuration.defaultAfterAll
+                    ? utils_1.Utils.mergeFunctions(configuration_1.Configuration.defaultAfterAll, hooks.afterAll)
                     : hooks.afterAll
-                : Hooks.defaultAfterAll;
+                : configuration_1.Configuration.defaultAfterAll;
         }
     }
     Hooks.addDefault = addDefault;

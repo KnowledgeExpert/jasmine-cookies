@@ -1,27 +1,25 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const configuration_1 = require("./configuration");
 var Filter;
 (function (Filter) {
-    Filter.includesFilter = process.env.JASMINE_COOKIES_FILTER;
-    Filter.conditionalFilter = process.env.JASMINE_COOKIES_CONDITIONAL_FILTER;
-    function setIncludesFilter(filterExpr) {
-        Filter.includesFilter = filterExpr;
-    }
-    Filter.setIncludesFilter = setIncludesFilter;
-    function setConditionalFilter(filterExpr) {
-        Filter.conditionalFilter = filterExpr;
-    }
-    Filter.setConditionalFilter = setConditionalFilter;
+    // export function setIncludesFilter(filterExpr: string): void {
+    //     Configuration.includesFilter = filterExpr;
+    // }
+    //
+    // export function setConditionalFilter(filterExpr: string): void {
+    //     Configuration.conditionalFilter = filterExpr;
+    // }
     function includesFilterMatch(text) {
-        if (!Filter.includesFilter || Filter.includesFilter.length === 0)
+        if (!configuration_1.Configuration.includesFilter || configuration_1.Configuration.includesFilter.length === 0)
             return true;
         if (text === null || text === undefined)
             return false;
-        return text.includes(Filter.includesFilter);
+        return text.includes(configuration_1.Configuration.includesFilter);
     }
     Filter.includesFilterMatch = includesFilterMatch;
     function conditionalFilterMatch(text) {
-        if (!Filter.conditionalFilter || Filter.conditionalFilter.length === 0)
+        if (!configuration_1.Configuration.conditionalFilter || configuration_1.Configuration.conditionalFilter.length === 0)
             return true;
         if (text === null || text === undefined)
             return false;
@@ -31,7 +29,7 @@ var Filter;
             'OR': '|',
             'NOT': '!'
         };
-        let filterWithTransformedOperators = (' ' + Filter.conditionalFilter).slice(1); // hack for copy filter expression itself
+        let filterWithTransformedOperators = (' ' + configuration_1.Configuration.conditionalFilter).slice(1); // hack for copy filter expression itself
         Object.keys(operandsPairs)
             .forEach(operatorDescription => filterWithTransformedOperators = filterWithTransformedOperators.replace(operatorDescription, operandsPairs[operatorDescription]));
         // replace text chunks with bool values

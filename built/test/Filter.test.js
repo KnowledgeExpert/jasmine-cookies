@@ -3,11 +3,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const describe_1 = require("../describe");
 const it_1 = require("../it");
 const filter_1 = require("../filter");
+const configuration_1 = require("../configuration");
 const Describe = describe_1.Describe.build;
 const It = it_1.It.build;
 Describe(`Conditional filter`, () => {
     const match = (filter, text) => {
-        filter_1.Filter.setConditionalFilter(filter);
+        configuration_1.Configuration.conditionalFilter = filter;
         return filter_1.Filter.conditionalFilterMatch(text);
     };
     [
@@ -97,6 +98,39 @@ Describe(`Conditional filter`, () => {
         It(`Should match complex expressions\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
             expect(match(data.filter, data.text)).toBe(true);
         });
+    });
+});
+Describe(`Includes filter`, () => {
+    const match = (filter, text) => {
+        configuration_1.Configuration.includesFilter = filter;
+        return filter_1.Filter.includesFilterMatch(text);
+    };
+    [
+        { filter: null, text: 'foo' },
+        { filter: null, text: '' },
+        { filter: null, text: null },
+        { filter: '', text: 'foo' },
+        { filter: '', text: '' },
+        { filter: '', text: null },
+        { filter: undefined, text: 'foo' },
+        { filter: undefined, text: null },
+        { filter: undefined, text: undefined }
+    ].forEach(data => {
+        It(`Should match anything if filter is falsy\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
+            expect(match(data.filter, data.text)).toBe(true);
+        });
+    });
+    [
+        { filter: 'foo', text: 'foobar' },
+        { filter: 'bar', text: 'foobar' },
+        { filter: 'oba', text: 'foobar' }
+    ].forEach(data => {
+        It(`Should match if text includes filter\n\tfilter - '${data.filter}' text - '${data.text}'`, () => {
+            expect(match(data.filter, data.text)).toBe(true);
+        });
+    });
+    It(`Should not match if text not includes filter`, () => {
+        expect(match('foo', 'bar')).toBe(false);
     });
 });
 //# sourceMappingURL=Filter.test.js.map
