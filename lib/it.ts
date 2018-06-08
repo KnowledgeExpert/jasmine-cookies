@@ -15,27 +15,21 @@ export namespace It {
         const suite = currentSuiteName ? `${currentSuiteName} ` : '';
         const fullTestName = `${suite}${test}`;
 
-        if (!(Filter.conditionalFilter === '') && Filter.includesFilter === '') {
+
+        if (Filter.includesFilter) {
+            if (Filter.includesFilterMatch(fullTestName)) {
+                it(test, func);
+            }
+        }
+
+        else if (Filter.conditionalFilter  && !Filter.includesFilter) {
             if (Filter.conditionalFilterMatch(fullTestName)) {
                 it(test, func);
             }
         }
 
-        else if (!(Filter.includesFilter  === '') && Filter.conditionalFilter  === '') {
-            if (Filter.includesFilterMatch(fullTestName)) {
-                it(test, func);
-            }
-        }
-
-        else if (!(Filter.includesFilter === '') && !(Filter.conditionalFilter === '')) {
-            if (Filter.includesFilterMatch(fullTestName)) {
-                it(test, func);
-            }
-        }
-
-        else if (Filter.includesFilter  === '' && Filter.conditionalFilter === '') {
+        else if (!Filter.includesFilter && !Filter.conditionalFilter) {
             it(test, func);
         }
     }
-
 }

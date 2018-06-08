@@ -9,22 +9,17 @@ var It;
         const test = typeof testNameOrOptions === 'string' ? testNameOrOptions : testNameOrOptions.case;
         const suite = currentSuiteName ? `${currentSuiteName} ` : '';
         const fullTestName = `${suite}${test}`;
-        if (!(filter_1.Filter.conditionalFilter === '') && filter_1.Filter.includesFilter === '') {
+        if (filter_1.Filter.includesFilter) {
+            if (filter_1.Filter.includesFilterMatch(fullTestName)) {
+                it(test, func);
+            }
+        }
+        else if (filter_1.Filter.conditionalFilter && !filter_1.Filter.includesFilter) {
             if (filter_1.Filter.conditionalFilterMatch(fullTestName)) {
                 it(test, func);
             }
         }
-        else if (!(filter_1.Filter.includesFilter === '') && filter_1.Filter.conditionalFilter === '') {
-            if (filter_1.Filter.includesFilterMatch(fullTestName)) {
-                it(test, func);
-            }
-        }
-        else if (!(filter_1.Filter.includesFilter === '') && !(filter_1.Filter.conditionalFilter === '')) {
-            if (filter_1.Filter.includesFilterMatch(fullTestName)) {
-                it(test, func);
-            }
-        }
-        else if (filter_1.Filter.includesFilter === '' && filter_1.Filter.conditionalFilter === '') {
+        else if (!filter_1.Filter.includesFilter && !filter_1.Filter.conditionalFilter) {
             it(test, func);
         }
     }
