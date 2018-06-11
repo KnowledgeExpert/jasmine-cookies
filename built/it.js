@@ -22,35 +22,7 @@ var It;
     }
     It.build = build;
     function buildJasmineIt(description, func) {
-        console.log('is it should contain test body itself?', !configuration_1.Configuration.dummyTests);
         it(description, configuration_1.Configuration.dummyTests ? () => true : func);
     }
-    // function verboseIt(testname, testfunc) {
-    //     it(testname, Utils.isAsync(testfunc) ? async () => {
-    //         const starttime = Date.now();
-    //         try {
-    //             await testfunc();
-    //         } finally {
-    //             // "196783".substr(0, "196783".length - 3) + '.' + "196783".substr("196783".length - 3)
-    //             // "196.783"
-    //             const endtime = `${Date.now() - starttime}`;
-    //             const endtimems = endtime.length > 3 ? endtime.substr(endtime.length - 3) : endtime;
-    //             const endtimes = endtime.length > 3 ? endtime.substr(0, endtime.length - 3) : 0;
-    //             console.log(`${testname} - ${endtimes}.${endtimems}s `);
-    //         }
-    //     } : () => {
-    //         const starttime = Date.now();
-    //         try {
-    //             testfunc();
-    //         } finally {
-    //             // "196783".substr(0, "196783".length - 3) + '.' + "196783".substr("196783".length - 3)
-    //             // "196.783"
-    //             const endtime = `${Date.now() - starttime}`;
-    //             const endtimems = endtime.length > 3 ? endtime.substr(endtime.length - 3) : endtime;
-    //             const endtimes = endtime.length > 3 ? endtime.substr(0, endtime.length - 3) : 0;
-    //             console.log(`${testname} - ${endtimes}.${endtimems}s `);
-    //         }
-    //     });
-    // }
 })(It = exports.It || (exports.It = {}));
 //# sourceMappingURL=it.js.map
