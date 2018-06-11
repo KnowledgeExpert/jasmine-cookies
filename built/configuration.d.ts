@@ -3,6 +3,7 @@ export declare namespace Configuration {
     import TestFunction = Types.TestFunction;
     let includesFilter: string;
     let conditionalFilter: string;
+    let dummyTests: boolean;
     let defaultBeforeEach: TestFunction | null;
     let defaultBeforeAll: TestFunction | null;
     let defaultAfterEach: TestFunction | null;

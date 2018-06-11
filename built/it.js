@@ -11,16 +11,20 @@ var It;
         const fullTestName = `${suite}${testname}`;
         // add error if filter is falsy to matchers
         if (configuration_1.Configuration.includesFilter && filter_1.Filter.includesFilterMatch(fullTestName)) {
-            it(fullTestName, func);
+            buildJasmineIt(fullTestName, func);
         }
         else if (configuration_1.Configuration.conditionalFilter && !configuration_1.Configuration.includesFilter && filter_1.Filter.conditionalFilterMatch(fullTestName)) {
-            it(fullTestName, func);
+            buildJasmineIt(fullTestName, func);
         }
         else if (!configuration_1.Configuration.includesFilter && !configuration_1.Configuration.conditionalFilter) {
-            it(fullTestName, func);
+            buildJasmineIt(fullTestName, func);
         }
     }
     It.build = build;
+    function buildJasmineIt(description, func) {
+        console.log('is it should contain test body itself?', !configuration_1.Configuration.dummyTests);
+        it(description, configuration_1.Configuration.dummyTests ? () => true : func);
+    }
     // function verboseIt(testname, testfunc) {
     //     it(testname, Utils.isAsync(testfunc) ? async () => {
     //         const starttime = Date.now();
