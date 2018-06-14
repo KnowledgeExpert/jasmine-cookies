@@ -1,6 +1,8 @@
 {
   "name": "jasmine-cookies",
-  "version": "1.0.0",
+  "description": "Jasmine helpers",
+  "homepage": "https://github.com/KnowledgeExpert/jasmine-cookies",
+  "version": "0.1.1",
   "main": "built/index.js",
   "typings": "built/index.d.ts",
   "dependencies": {
@@ -11,9 +13,20 @@
     "xlsx": "0.12.7",
     "typescript": "2.5.3"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/KnowledgeExpert/jasmine-cookies.git"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "test",
+    "jasmine",
+    "tdd",
+    "bdd"
+  ],
   "scripts": {
     "clean": "node cleanResources.js ./build",
     "build": "npm run clean && tsc",
-    "test": "npm run build && jasmine ./built/test/*.test.js"
+    "test": "npm run build && jasmine ./test/*.test.js"
   }
 }

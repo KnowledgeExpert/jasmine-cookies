@@ -12,13 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {Describe as descr} from '../describe';
-import {It as it} from '../it';
-import {Filter} from '../filter';
-import {Configuration} from "../configuration";
-
-const Describe = descr.build;
-const It = it.build;
+const Describe = require('../built/describe').Describe.build;
+const It = require('../built/it').It.build;
+const Filter = require('../built/filter').Filter;
+const Configuration = require("../built/configuration").Configuration;
 
 
 Describe(`Conditional filter`, () => {
