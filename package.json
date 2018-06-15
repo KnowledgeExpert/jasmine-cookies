@@ -2,14 +2,14 @@
   "name": "jasmine-cookies",
   "description": "Jasmine helpers",
   "homepage": "https://github.com/KnowledgeExpert/jasmine-cookies",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "built/index.js",
   "typings": "built/index.d.ts",
   "dependencies": {
     "@types/jasmine": "2.6.0",
     "jasmine": "3.1.0",
     "@types/node": "9.6.4",
-    "csv-to-deep-json": "git+ssh://git@github.com/KnowledgeExpert/csv-to-deep-json.git",
+    "csv-to-deep-json": "0.1.0",
     "xlsx": "0.12.7",
     "typescript": "2.5.3"
   },
