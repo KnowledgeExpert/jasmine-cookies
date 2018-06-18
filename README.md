@@ -1,8 +1,8 @@
 ## Jasmine Cookies
 
-Jasmine extensions is a module with several helper functions.
+**Jasmine Cookies** is a module with several helper functions.
 
-### [It](./lib/test.ts)
+### [It](./lib/it.ts)
 
 This helper is a wrapper around jasmine `it` which adds user-friendly filtering. Test will be launched only in case if test name passes filtering expression (if no expression provided all tests will run by default).
 
@@ -33,7 +33,7 @@ Note:
  - special characters (`| & !`) are now allowed in text (i.e. `Test.conditionalFilter('"hello world!"')` is not valid expression)
  - filter expression will be applied to concatenated `Describe` and `It`/`pIt` descriptions, DO NOT USE 'raw' jasmine `describe` with `It`'s!
 
-## [pIt](./lib/test.ts)
+## [pIt](./lib/pIt.ts)
 
 This helper is a wrapper around jasmine `it` which adds parametrized testing (when same test performs on multiple data sets). Basically `pIt` performs data processing and run `It` on each data set using `description` property as test name.
 
