@@ -2,7 +2,7 @@
   "name": "jasmine-cookies",
   "description": "Jasmine helpers",
   "homepage": "https://github.com/KnowledgeExpert/jasmine-cookies",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "main": "built/index.js",
   "typings": "built/index.d.ts",
   "dependencies": {
