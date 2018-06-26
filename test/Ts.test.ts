@@ -1,4 +1,3 @@
-"use strict";
 // Copyright 2018 Knowledge Expert SA
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,12 +11,3 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-Object.defineProperty(exports, "__esModule", { value: true });
-var Configuration;
-(function (Configuration) {
-    Configuration.includesFilter = process.env.JASMINE_COOKIES_FILTER;
-    Configuration.conditionalFilter = process.env.JASMINE_COOKIES_CONDITIONAL_FILTER;
-    //debug purposes only
-    Configuration.dummyTests = false;
-})(Configuration = exports.Configuration || (exports.Configuration = {}));
-//# sourceMappingURL=configuration.js.map
