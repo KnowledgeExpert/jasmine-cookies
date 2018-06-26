@@ -26,7 +26,8 @@
   ],
   "scripts": {
     "clean": "node cleanResources.js ./build",
-    "build": "npm run clean && tsc",
-    "test": "npm run build && jasmine ./test/*.test.js"
+    "build": "tsc --project lib && tsc",
+    "build-tests": "tsc --project test && tsc",
+    "test": "npm run build-tests && jasmine ./test/*.test.js"
   }
 }
